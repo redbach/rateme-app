@@ -1,0 +1,6 @@
+.jshintrc
+node_modules/
+secret/
+public/images/
+public/uploads/
+x_screenshots_etc/
