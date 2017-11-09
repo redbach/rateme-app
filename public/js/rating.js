@@ -1,22 +1,6 @@
 $(document).ready(function(){
     var clickedValue = 0;
 
-    // $('#0_star').hover(function(){
-    //     $('#1_star').attr('src', '/images/star_off.png');
-    //     $('#2_star').attr('src', '/images/star_off.png');
-    //     $('#3_star').attr('src', '/images/star_off.png');
-    //     $('#4_star').attr('src', '/images/star_off.png');
-    //     $('#5_star').attr('src', '/images/star_off.png');
-        
-    //     $('#showTitle').html('No rating given');
-    // });
-    
-    // $('#1_star').on('mouseout', function(){
-    //     clickedValue = 0;
-        
-    //     console.log(clickedValue)
-    // });
-
         $('#1_star').hover(function(){
         $('#1_star').attr('src', '/images/star_on.png');
         $('#2_star').attr('src', '/images/star_off.png');
@@ -30,7 +14,7 @@ $(document).ready(function(){
     $('#1_star').on('click', function(){
         clickedValue = 1;
         
-        console.log(clickedValue)
+        // console.log(clickedValue);
     });
     
     $('#2_star').hover(function(){
@@ -46,7 +30,7 @@ $(document).ready(function(){
     $('#2_star').on('click', function(){
         clickedValue = 2;
         
-        console.log(clickedValue);
+        // console.log(clickedValue);
     });
     
     $('#3_star').hover(function(){
@@ -62,7 +46,7 @@ $(document).ready(function(){
     $('#3_star').on('click', function(){
         clickedValue = 3;
         
-        console.log(clickedValue);
+        // console.log(clickedValue);
     });
     
     $('#4_star').hover(function(){
@@ -78,7 +62,7 @@ $(document).ready(function(){
     $('#4_star').on('click', function(){
         clickedValue = 4;
         
-        console.log(clickedValue);
+        // console.log(clickedValue);
     });
     
     $('#5_star').hover(function(){
@@ -94,7 +78,7 @@ $(document).ready(function(){
     $('#5_star').on('click', function(){
         clickedValue = 5;
         
-        console.log(clickedValue);
+        // console.log(clickedValue);
     });
     
     $('#rate').on('click', function(){

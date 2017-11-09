@@ -33,7 +33,7 @@
                             
                             <a href="/review/<%= data._id %>" class="btn btn-success">Rate this company</a><br><br>
 
-                            <a href="" class="btn btn-info">View Company Employees</a><br><br>
+                            <a href="/<%= data.name %>/employees" class="btn btn-info">View Company Employees</a><br><br>
 
                             <% if(user.company.name != data.name) {%>
                                 <a href="/company/register-employee/<%= id %>" class="btn btn-primary">

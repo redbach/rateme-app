@@ -13,48 +13,41 @@
             <div class="ul_links">
                 <ul>
                     <li><a href="/">Home</a></li> |
-                    <li><a href="/companies">All Companies</a></li>
+                    <li><a href="/companies">All Companies</a></li> |
+                    <li><a href="#">Leaderboard</a></li>
                 </ul>
             </div>
 
             <div class="bodyDiv">
-                <h4 style="">Companies</h4>
+                <h4 style="">Top Rated Companies</h4>
                 
-                <% arrayAverage = (arr) => {
-                    return _.reduce(arr, (num1, num2) => {
-                        return num1 + num2;
-                    }, 0) / (arr.length === 0 ? 1 : arr.length);
-                } %>
-
 
                 <% for(var i = 0; i < data.length; i++) { %>
-                    <% var total = arrayAverage(data[i].ratingNumber) %>
 
-                    <div class="col-xs-12 col-md-6 col-lg-4 companyListDiv">
+                    <% var index = _.indexOf(data, data[i]) %>
+
+
+                    <div class="companyListDiv">
                         <a href="/company-profile/<%= data[i]._id %>">
                             <img src="/uploads/<%= data[i].image %>" class="companyListItemLogo">
 
                             <div class="companyListItemInfo">
+                                <h5># <%= index + 1 %></h5>
                                 <h5 class=""><%= data[i].name %></h5>
                                 <span class="">
-                                    <i class="star" data-score="<%= total %>"></i>
-                                     &nbsp;( <%= data[i].ratingNumber.length %> )
+                                    [ <%= data[i].companyRating.length %> ]
                                 </span><br>
-                                <i class="fa fa-building-o "> <%= data[i].sector %></i><br>
-                                <i class="fa fa-map-marker "> <%= data[i].city %>, <%= data[i].country %></i>
+    
+                                
                             </div>
 
                         </a>
                     </div>
                 <% } %>
                     
-                
 
             </div>
         </div>
     </div>
 
 </div>
-
-
-

@@ -66,17 +66,15 @@ module.exports = (app) => {
 
     app.get('/companies', (req, res) => {
         Company.find({}, (err, result) => {
-            console.log(result);
-                res.render('company/companies', {title: 'For-profit Education Providers in SA', user: req.user, data: result});
-        });
-        
+                res.render('company/companies', {title: 'All Companies || RateMe', user: req.user, data: result});
+        });  
     });
 
     app.get('/company-profile/:id', (req, res) => {
         Company.findOne({'_id':req.params.id}, (err, data) => {
-            var avg = arrayAverage(data.ratingNumber); 
+            var avg = arrayAverage(data.ratingNumber);
 
-            console.log(avg);
+            // console.log(avg);
 
             res.render('company/company-profile', {title: 'Company Name', user:req.user, id:req.params.id, data:data, average: avg});
         });
@@ -127,6 +125,35 @@ module.exports = (app) => {
                 ]);
             }
         ]);
+    });
+
+    app.get('/:name/employees', (req, res) => {
+        Company.findOne({'name':req.params.name}, (err, data) => {
+            res.render('company/employees', {title: 'Company Employees', user: req.user, data: data});
+        });
+    });
+
+    app.get('/companies/leaderboard', (req, res) => {
+        Company.find({}, (err, result) => {
+                res.render('company/leaderboard', {title: 'Companies Leaderboard || RateMe', user: req.user, data: result});
+        }).sort({'ratingSum': -1});  
+    });
+
+    app.get('/company/search', (req, res) => {
+        res.render('company/search', {title: 'Find a Company', user:req.user});
+    });
+    
+    app.post('/company/search', (req, res) => {
+        var name = req.body.search;
+        var regex = new RegExp(name, 'i');
+        
+        Company.find({'$or': [{'name':regex}]}, (err, data) => {
+            if(err){
+                console.log(err);
+            }
+            
+            res.redirect('/company-profile/'+data[0]._id);
+        });
     });
 
 };
