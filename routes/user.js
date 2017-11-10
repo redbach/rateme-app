@@ -1,10 +1,10 @@
-var   nodemailer    = require('nodemailer'),
-      smtpTransport = require('nodemailer-smtp-transport'),
-      async         = require('async'),
-
-      crypto        = require('crypto'),
-      User          = require('../models/user'),
-      secret        = require('../secret/secret');
+var   nodemailer     = require('nodemailer'),
+      smtpTransport  = require('nodemailer-smtp-transport'),
+      async          = require('async'),
+      crypto         = require('crypto'),
+      User           = require('../models/user'),
+      Company        = require('../models/company'),
+      secret         = require('../secret/secret');
 
 module.exports = (app, passport) => {
 
@@ -13,13 +13,15 @@ module.exports = (app, passport) => {
       if(req.session.cookie.originalMaxAge !== null){
          res.redirect('/home');
       } else {
-         res.render('index', {title: 'Index || RateMe'});
+         Company.find({}, (err, result) => {
+            res.render('index', {title: 'Index || RateMe', data:result});
+         });
       }
    });
 
    app.get('/signup', (req, res) => {
       var errors = req.flash('error');
-      console.log('Sign up route errors: '+errors);
+      // console.log('Sign up route errors: '+errors);
       res.render('user/signup', {title: 'Sign Up || RateMe', messages: errors, hasErrors: errors.length > 0});
    });
 
@@ -35,11 +37,12 @@ module.exports = (app, passport) => {
    });
 
    app.post('/login', loginValidation, passport.authenticate('local.login', {
+//        successRedirect: '/home',
       failureRedirect: '/login',
       failureFlash : true
    }), (req, res) => {
       if(req.body.rememberme){
-         req.session.cookie.maxAge = 20*60*1000;
+         req.session.cookie.maxAge = 24*60*60*1000;  //24 hours
       } else {
          req.session.cookie.expires = null;
       }
@@ -60,6 +63,7 @@ module.exports = (app, passport) => {
 
    app.get('/forgot', (req, res) => {
       var errors = req.flash('error');
+
       var info = req.flash('info');
 
       res.render('user/forgot', {title: 'Password Reset Request', messages: errors, hasErrors: errors.length > 0, info: info, noErrors: info.length > 0});
@@ -73,6 +77,7 @@ module.exports = (app, passport) => {
                callback(err, rand);
             });
          },
+
          function(rand, callback){
             User.findOne({'email':req.body.email}, (err, user) => {
                if(!user){
@@ -81,7 +86,7 @@ module.exports = (app, passport) => {
                }
 
                user.passwordResetToken = rand;
-               user.passwordResetExpires = Date.now() + 8*60*60*1000;
+               user.passwordResetExpires = Date.now() + 60*60*1000;
                     
                user.save((err) => {
                   callback(err, rand, user);
@@ -126,7 +131,6 @@ module.exports = (app, passport) => {
       User.findOne({passwordResetToken:req.params.token, passwordResetExpires: {$gt: Date.now()}}, (err, user) => {
             if(!user){
                req.flash('error', 'Password reset token has expired OR is invalid. Request a new token.');
-               // return res.redirect('/reset/'+req.params.token);  //instructor did THIS first
                return res.redirect('/forgot');
             }
             var errors = req.flash('error');
@@ -174,11 +178,10 @@ module.exports = (app, passport) => {
                req.flash('error', 'You did not enter the same password twice. Please try again.');
                res.redirect('/reset/'+req.params.token);
             }
-
-
-
          });
       },
+
+
 
       function(user, callback){
          var smtpTransport = nodemailer.createTransport({

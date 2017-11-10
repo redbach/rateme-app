@@ -15,5 +15,4 @@ var arrayAverage = (arr) => {
 // round(12345.6789, 2) // 12345.68
 // round(12345.6789, 1) // 12345.7
 
-
 module.exports = {arrayAverage};

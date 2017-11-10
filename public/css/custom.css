@@ -351,20 +351,26 @@ input[type="submit"]{
 
 .nav_bar > li > a{
     color: #73879C;
-    font-size: 20px;
+    font-size: 18px;
 }
 
+.signupIcon {
+    font-weight: 400;
+    color: #fff;
+    font-size: 24px;
+    border-bottom: 0.5px solid #808080;
+    padding: 10px 15px 12px 15px;
+    text-align: centre; 
+    margin: 0px 0px 6px 0px;
+    line-height: 30px;
+}
 
-.lists{
-    font-style: normal;
+.lists {
     font-weight: 400;
     color: #fff;
     font-size: 15px;
-    font-family: 'Roboto', sans-serif;
-  border-bottom: 0.5px solid #808080;
+    border-bottom: 0.5px solid #808080;
     padding: 10px 15px 12px 15px;
-    text-align: justify;
     margin: 0px 0px 6px 0px;
     line-height: 30px;
-    text-indent: 0px !important;
 }

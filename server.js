@@ -10,6 +10,7 @@ var MongoStore     = require('connect-mongo')(session);
 var passport       = require('passport');
 var flash          = require('connect-flash');
 var _              = require('underscore');
+var moment         = require('moment');
 
 var app = express(); //creates an instance of the express method 
 
@@ -47,7 +48,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.locals._ = _;
-// app.locals.moment = moment;
+app.locals.moment = moment;
 
 require('./routes/user')(app, passport);
 require('./routes/company')(app);

@@ -4,7 +4,7 @@ $(document).ready(function(){
     $('#message').click(function(){
         var message = $.trim($('#msg').val());
         
-        if(message != ''){
+        if(message !== ''){
             $.post('/message/'+id, {
                 message: message,
                 id: id

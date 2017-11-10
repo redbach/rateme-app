@@ -9,7 +9,7 @@ module.exports = (app) => {
             function(callback){
                 User.findById({'_id':req.params.id}, (err, result1) => {
                     callback(err, result1);
-                })
+                });
             },
             
             function(callback){
@@ -24,6 +24,7 @@ module.exports = (app) => {
             res.render('messages/message', {title: 'Private Message', user:req.user, data:data, chats:messages});
         });
     });
+
     
     app.post('/message/:id', (req, res) => {
         
